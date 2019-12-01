@@ -10,11 +10,16 @@ public class App {
     static Scanner sc = new Scanner(System.in);
     static String[][] usuaris = new String[7][20];
     static String[][] edats = new String[4][20];
-    public static void main(String[] args) {     
+    public static void main(String[] args) {
         boolean sortir = false;
         for(int i=0;i<usuaris.length;i++){
             for(int j=0; j<usuaris[0].length;j++){
                 usuaris[i][j] = " ";
+            }
+        }
+        for(int i=0;i<edats.length;i++){
+            for(int j=0; j<edats[0].length;j++){
+                edats[i][j] = " ";
             }
         }
 
@@ -24,7 +29,8 @@ public class App {
             System.out.println("1. Afegir un nou usuari");
             System.out.println("2. Accedir amb un usuari ja existent");
             System.out.println("3. Buscar coincidencia");
-            System.out.println("4. Sortir");
+            System.out.println("4. Ordenar ascendenment");
+            System.out.println("5. Sortir");
             int accio = Integer.parseInt(sc.nextLine());
             switch (accio) {
                 case 1:
@@ -42,11 +48,15 @@ public class App {
                 buscar(usuaris);
                 break;
                 case 4:
+                System.out.println("Vols ordenar de forma ascendent! Endevant:");
+                ordenarAsc(usuaris, edats);
+                break;
+                case 5:
                 System.out.println("Vagi bé! Fins la proxima.");
                 sortir=true;
                 break;
                 default:
-                System.out.println("Introdueix una operació valida!");                
+                System.out.println("Introdueix una operació valida!");
             }
 
         }
@@ -97,7 +107,7 @@ public class App {
             System.out.println("--------------------------------------------------");
             dada = sc.nextLine();
             repe = false;
-            for(int x = 0; x < usuaris[0].length; x++){   
+            for(int x = 0; x < usuaris[0].length; x++){
                 if (dada.equalsIgnoreCase(usuaris[5][x])) {
                     repe = true;
                     System.out.println("--------------------------------------------------");
@@ -106,7 +116,7 @@ public class App {
                 }
             }
             usuaris[5][contador] = dada;
-        }        
+        }
 
         System.out.println("Quina és la teva contrasenya?");
         dada = sc.nextLine();
@@ -124,7 +134,7 @@ public class App {
         String usuari = sc.nextLine();
         boolean trobat = false;
         int contador = 0;
-        
+
         for (int i=0;i<20;i++) {
             if (usuaris[5][i].equals(usuari)) {
                 break;
@@ -163,7 +173,7 @@ public class App {
         int edat = 0;
             if(Integer.parseInt(dataAvui[0]) >= Integer.parseInt(dataUser[0])) {
                 edat = (Integer.parseInt(dataAvui[2])-Integer.parseInt(dataUser[2]));
-                
+
             } else {
                 edat = (Integer.parseInt(dataAvui[2])-Integer.parseInt(dataUser[2])-1);
                 if(Integer.parseInt(dataAvui[1]) > Integer.parseInt(dataUser[1])) {
@@ -201,29 +211,38 @@ public class App {
         String edat = "";
         for(int j = 1; j<(edats[0].length)+1;j++){
             for(int i = 1; i<(edats[0].length)+1;i++) {
-                if (Integer.parseInt(edats[3][i])<=Integer.parseInt(edats[3][i+1])){
-                    nom=edats[0][i+1];
-                    cognom=edats[1][i+1];
-                    poblacio=edats[2][i+1];
-                    edat=edats[3][i+1];
-                    edats[0][i+1]=edats[0][i];
-                    edats[1][i+1]=edats[1][i];
-                    edats[2][i+1]=edats[2][i];
-                    edats[3][i+1]=edats[3][i];
-                    edats[0][i]=nom;
-                    edats[1][i]=cognom;
-                    edats[2][i]=poblacio;
-                    edats[3][i]=edat;
+                if(edats[3][i].equalsIgnoreCase(" ")){
+
+                } else {
+                    if (Integer.parseInt(edats[3][i])<=Integer.parseInt(edats[3][i+1])){
+                        nom=edats[0][i+1];
+                        cognom=edats[1][i+1];
+                        poblacio=edats[2][i+1];
+                        edat=edats[3][i+1];
+                        edats[0][i+1]=edats[0][i];
+                        edats[1][i+1]=edats[1][i];
+                        edats[2][i+1]=edats[2][i];
+                        edats[3][i+1]=edats[3][i];
+                        edats[0][i]=nom;
+                        edats[1][i]=cognom;
+                        edats[2][i]=poblacio;
+                        edats[3][i]=edat;
+                    }
                 }
+
             }
         }
         for(int i=0;i<edats[0].length;i++){
             for(int j=0; j<edats.length;j++){
+                if(edats[3][i].equalsIgnoreCase(" ")){
+
+                } else {
                 System.out.println("Nom: "+edats[0][i]);
                 System.out.println("Cognom: "+edats[1][i]);
                 System.out.println("Població: "+edats[2][i]);
                 System.out.println("Edat: "+edats[3][i]);
             }
+        }
         }
     }
 }
